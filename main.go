@@ -56,7 +56,8 @@ func uploadFiles(mediaType, path, filePath string, m *minio.Client) error {
 
 		if !dryRun {
 			_, err := m.FPutObject("triton-media", key, filepath.Join(filePath, file.Name()), minio.PutObjectOptions{
-				NumThreads: uint(runtime.NumCPU()),
+				NumThreads:  uint(runtime.NumCPU()),
+				ContentType: "application/octet-stream",
 			})
 			if err != nil {
 				return err
